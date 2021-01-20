@@ -24,8 +24,8 @@ class Sigmoid:
     def __call__(self,inputs):
         return self.forward(inputs)
     def forward(self,inputs):
-        inputs = -inputs
-        exp_values = np.exp(inputs - np.max(inputs, axis = 1, keepdims = True))
+        inputs = -(inputs - np.max(inputs, axis = 1, keepdims = True))
+        exp_values = np.exp(inputs)
         probs = 1/(1+exp_values)
         return probs
 """
