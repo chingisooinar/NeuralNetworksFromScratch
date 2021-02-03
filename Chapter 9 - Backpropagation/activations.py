@@ -39,7 +39,7 @@ class Softmax:
         
         for index, (single_output,single_dvalues) in enumerate(zip(self.output,dvalues)):
             # Flatten output array
-            single_output.reshape_(-1,1)
+            single_output = single_output.reshape(-1,1)
             # Calculate Jacobian matrix of the output
                                 #S_i_j * sigma_j_k      -     S_i_j * S_i_k 
             jacobian_matrix = np.diagflat(single_output) - np.dot(single_output, single_output.T)
