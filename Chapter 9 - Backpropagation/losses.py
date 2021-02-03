@@ -43,6 +43,7 @@ class CatCrossentropy(Loss):
         self.dinputs = -self.y_true / dvalues
         # Normalize gradient
         self.dinputs = self.dinputs / samples
+        
 class Activation_Softmax_Loss_CategoricalCrossentropy():
     def __init__(self):
         self.activation = Softmax()
