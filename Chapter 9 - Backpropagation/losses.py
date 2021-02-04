@@ -5,6 +5,7 @@ Created on Sat Jan 23 07:03:46 2021
 
 @author: nuvilabs
 """
+from activations import Softmax
 import numpy as np
 class Loss:
     def calculate(self, output, y):
@@ -21,15 +22,18 @@ class CatCrossentropy(Loss):
     def forward(self, y_pred, y_true):
         self.y_true = y_true
         #Number of samples in a batch
-        samples = y_pred.shape[0]
+        samples = len(y_pred)
         
         y_pred_clipped = np.clip(y_pred, 1e-7, 1 - 1e-7)
         #for numerical labels
         if len(y_true.shape) == 1:
-            correct_confidences = y_pred_clipped[:,y_ture]
+            correct_confidences = y_pred_clipped[range(samples),y_true]
         #for one-hot encoded labels
         elif len(y_true.shape) == 2:
-            correct_confidences = y_pred_clipped[y_true == 1]
+            correct_confidences = np.sum(
+            y_pred_clipped * y_true,
+            axis=1
+            )
         negative_log_likelihoods = -np.log(correct_confidences)
         return negative_log_likelihoods
     def backward(self,dvalues):
@@ -43,7 +47,8 @@ class CatCrossentropy(Loss):
         self.dinputs = -self.y_true / dvalues
         # Normalize gradient
         self.dinputs = self.dinputs / samples
-        
+
+
 class Activation_Softmax_Loss_CategoricalCrossentropy():
     def __init__(self):
         self.activation = Softmax()

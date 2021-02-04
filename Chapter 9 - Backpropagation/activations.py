@@ -11,7 +11,7 @@ class ReLu:
         return self.forward(inputs)
     def forward(self,inputs):
         self.inputs = inputs
-        return np.maximum(0,inputs)
+        self.output =  np.maximum(0,inputs)
     def backward(self,dvalues):
         self.dinputs = np.copy(dvalues)
         self.dinputs[self.inputs <= 0] = 0
@@ -20,6 +20,7 @@ class Softmax:
     def __call__(self,inputs):
         return self.forward(inputs)
     def forward(self,inputs):
+        self.inputs = inputs
         exp_values = np.exp(inputs - np.max(inputs, axis = 1, keepdims = True))
         self.output = exp_values/np.sum(exp_values, axis = 1, keepdims= True)
         return self.output
