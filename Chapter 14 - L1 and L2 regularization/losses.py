@@ -21,7 +21,7 @@ class Loss:
         if layer.bias_regularizer_l2:
             regularization_loss += layer.bias_regularizer_l2 * np.sum(layer.biases**2)
             
-        return regularization_loss()
+        return regularization_loss
             
     def calculate(self, output, y):
         #Calculate sample losses

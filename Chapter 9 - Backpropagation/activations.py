@@ -53,5 +53,7 @@ class Sigmoid:
     def forward(self,inputs):
         inputs = -inputs
         exp_values = np.exp(inputs - np.max(inputs, axis = 1, keepdims = True))
-        probs = 1/(1+exp_values)
-        return probs
+        self.output = 1/(1+exp_values)
+        return self.output
+    def backward(self, dvalues):
+        return dvalues * self.output * (1 - self.output)
