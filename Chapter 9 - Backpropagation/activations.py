@@ -57,3 +57,13 @@ class Sigmoid:
         return self.output
     def backward(self, dvalues):
         return dvalues * self.output * (1 - self.output)
+class Linear:
+    #Forward pass 
+    def forward(self, inputs):
+        #just remember values
+        self.inputs = inputs
+        self.output = output
+    #Backward pass
+    def backward(self, dvalues):
+        #derivatice is 1, 1 * dvalues = dvalues
+        self.dinputs = dvalues.copy()

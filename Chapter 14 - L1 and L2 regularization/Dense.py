@@ -23,7 +23,7 @@ class Layer_Dense:
         training. This way, we have a bunch of values to begin working with, but hopefully none too large
         or as zeros. You can experiment with values other than 0.01 if you like.
         """
-        self.weights = 0.01 * np.random.randn(n_inputs,n_neurons)
+        self.weights = 0.1 * np.random.randn(n_inputs,n_neurons)
         self.biases = np.zeros((1, n_neurons))
         self.weight_regularizer_l1 = weight_regularizer_l1
         self.weight_regularizer_l2 = weight_regularizer_l2
