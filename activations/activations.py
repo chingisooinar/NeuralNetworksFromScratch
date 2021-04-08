@@ -18,7 +18,56 @@ class ReLu:
     # Calculate predictions for outputs
     def predictions(self, outputs):
         return outputs
+class Tanh:
+    """
+    Hyperbolic Tangent Function(Tanh).
+    Implement forward & backward path of Tanh.
+    """
+    def __init__(self):
+        self.out = None
+        
+    def __call__(self,inputs):
+        return self.forward(inputs)
     
+    def forward(self, z):
+        """
+        Hyperbolic Tangent Forward.
+
+        z --> (Tanh) --> self.out
+
+        [Inputs]
+            z : Tanh input in any shape.
+
+        [Outputs]
+            self.out : Values applied elementwise tanh function on input 'z'.
+
+        """
+        self.out = None
+        self.inputs = z #- np.max(z, axis=1, keepdims=True)
+        pos_exp = np.exp(self.inputs)
+        neg_exp =  np.exp(-1. * (self.inputs))
+        self.output = (pos_exp - neg_exp) / (pos_exp + neg_exp)
+        return self.output
+
+    def backward(self, dvalues):
+        """
+        Hyperbolic Tangent Backward.
+
+        z --> (Tanh) --> self.out
+        dz <-- (dTanh) <-- d_prev(dL/d self.out)
+
+        [Inputs]
+            d_prev : Gradients flow from upper layer.
+            reg_lambda: L2 regularization weight. (Not used in activation function)
+
+        [Outputs]
+            dz : Gradients w.r.t. Tanh input z .
+            In other words, the derivative of tanh should be reflected on d_prev.
+        """
+        dz = None
+        dz = self.dinputs = (1.0 - self.output**2) * dvalues
+        return dz
+ 
 class Softmax:
     def __call__(self,inputs):
         return self.forward(inputs)
